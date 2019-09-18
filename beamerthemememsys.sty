@@ -1,9 +1,22 @@
 \ProvidesPackage{beamerthemememsys} % this style was created by David Vilar
 
+\usefonttheme{professionalfonts} % using non standard fonts for beamer
+\usefonttheme{serif} % default family is serif
+\usepackage{fontspec}
+\setmainfont{Inter}
+
+\usepackage{tikz}
+\usepackage{pdfrender}
+\usetikzlibrary{shapes,arrows}
+
 % If this is a poster, we're going to define different things
+% Same with presentations.
+\newif\ifpres
 \newif\ifposter
 \posterfalse
+\presfalse
 \DeclareOption{poster}{\postertrue}
+\DeclareOption{pres}{\prestrue}
 \ProcessOptions
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -12,54 +25,49 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+% Colors
 \definecolor{lanlblack}{cmyk}{0.6,0.5,0.4,1}
 \definecolor{lanlblue}{cmyk}{.9,.6,0,0}
 \definecolor{desatblue}{cmyk}{.1,.07,0,0}
 \definecolor{lanlgold}{cmyk}{0,0.25,0.9,0}
 
+% Plot colors
+\definecolor{plotblue}{cmyk}{1,1,0,0}
+\definecolor{plotgreen}{cmyk}{1,0,1,0.5}
+\definecolor{plotred}{cmyk}{0,1,1,0}
+\definecolor{plotyellow}{cmyk}{0,0.35,1,0}
+
 % headline colors and fonts
 \setbeamercolor{headline}{fg=lanlblue,bg=white}
 \setbeamercolor{title in headline}{fg=lanlblue}
+\setbeamercolor{title in title page}{fg=black}
 \setbeamercolor{author in headline}{fg=lanlblue}
-\setbeamercolor{institute in headline}{fg=lanlblue}
+\setbeamercolor{author in title page}{fg=lanlblue}
 \setbeamercolor{logo in headline}{fg=black,bg=lightgray}
 \setbeamercolor{separation line}{bg=lanlblue}
 
 % footline colors and fonts
 \setbeamercolor{footline}{fg=white,bg=lanlblue}
-%\setbeamerfont{footline}{fg=white,size=\normalsize}
 
-% body colors and fonts
+\ifposter
+% Poster has desatblue background
 \setbeamercolor*{normal text}{fg=black,bg=desatblue}
+\else
+% Other documents have pure white background
+\setbeamercolor*{normal text}{fg=black,bg=white}
+\fi
 
 % block environment
 \setbeamercolor*{block body}{bg=white,fg=black}
-\setbeamercolor*{block title}{fg=lanlgold,bg=lanlblue}
+\setbeamercolor*{block title}{fg=white,bg=lanlblue}
 \setbeamerfont{block title}{size=\large,series=\bf}
 
 % example environment
 \setbeamercolor*{example title}{fg=white,bg=lanlblue}
-%\setbeamerfont{example title}{size=\large,series=\bf,bg=i6colorscheme1,fg=white}
-
-
-%\setbeamercolor*{example body}{fg=white,bg=i6colorscheme4}
-%\setbeamercolor*{example title}{fg=white,bg=i6colorscheme1}
-
-
-%  \setbeamercolor{framesubtitle}{fg=ta3orange, bg=ta2gray}
-%  \setbeamercolor{author in head/foot}{fg=tabutter, bg=black}
-%  \setbeamercolor{title in head/foot}{bg=tabutter, fg=black}
-
 
 \setbeamercolor{alerted text}{fg=lanlblue}
-%\setbeamercolor{structure}{fg=i6blue}
 
-%  \setbeamertemplate{itemize/enumerate body begin}{
-%  }
-%  \setbeamertemplate{itemize/enumerate body end}{
-%  }
-
-\setbeamertemplate{itemize items}[triangle]
+\setbeamertemplate{itemize items}{>>}
 \setbeamertemplate{navigation symbols}{}  % no navigation on a poster
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -79,6 +87,7 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \ifposter
+% Header of a poster
 \setbeamertemplate{headline}{  
   \leavevmode
 
@@ -94,7 +103,6 @@
         \centering
         \usebeamercolor{title in headline}{\color{fg}\textbf{\LARGE{\inserttitle}}\\[1ex]}
         \usebeamercolor{author in headline}{\color{fg}\large{\insertauthor}\\[1ex]}
-        \usebeamercolor{institute in headline}{\color{fg}\large{\insertinstitute}\\[1ex]}
         \vskip4ex
       \end{column}
       \begin{column}{.06\paperwidth}
@@ -117,51 +125,29 @@
     \end{columns}
   \end{beamercolorbox}
   
-%%      \begin{beamercolorbox}[sep=0.1cm,wd=.1\paperwidth,center]{logo in headline}
-%%        \vskip2ex
-%%      \end{beamercolorbox}  
-%%      \begin{beamercolorbox}[sep=1cm,wd=.7\paperwidth]{headline}
-%%        \usebeamercolor{title in headline}{\raggedright\color{fg}\textbf{\LARGE{\inserttitle}}\\[1ex]}
-%%        \usebeamercolor{author in headline}{\raggedright\color{fg}\large{\insertauthor}\\[1ex]}
-%%        \usebeamercolor{institute in headline}{\raggedright\color{fg}\large{\insertinstitute}\\[1ex]}     
-%%      \end{beamercolorbox}%
-%%      \begin{beamercolorbox}[sep=0.1cm,wd=.18\paperwidth,center]{logo in headline}
-%%        \includegraphics[height=5cm]{logos/rwth-hks44}
-%%        \vskip2ex
-%%      \end{beamercolorbox}  
-%%    \end{beamercolorbox}
-  
   \begin{beamercolorbox}[wd=\paperwidth]{lower separation line head}
     \rule{0pt}{2pt}
   \end{beamercolorbox}
 }
+\else
+
+% Title page of a presentation
+\ifpres
+\setbeamertemplate{title page}{
+  \begin{minipage}[b][\paperheight]{\textwidth}
+    \centering
+    \vfill%
+    \usebeamercolor{title in title page}{\color{fg}\textbf{\LARGE{\inserttitle}}}\\
+    \vspace*{0.5em}
+    \usebeamercolor{author in title page}{\color{fg}\large{\insertauthor}}
+    \vfill
+    \vspace*{1mm}
+  \end{minipage}
+}
+
 \fi
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%\setbeamertemplate{footline}{
-  %\begin{beamercolorbox}[wd=\paperwidth]{upper separation line foot}
-    %\rule{0pt}{2pt}
-  %\end{beamercolorbox}
-  
-  %\begin{beamercolorbox}[ht=4ex]{footline}%
-    %\vskip1ex
-    %\centering https://github.com/lanl/SICM
-    %\vskip1ex
-  %\end{beamercolorbox}
-
-  %\begin{beamercolorbox}[wd=\paperwidth]{lower separation line foot}
-    %\rule{0pt}{2pt}
-  %\end{beamercolorbox}
-%}
+\fi
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \mode<all>
 
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%% Local Variables: 
-%%% mode: latex
-%%% TeX-master: "poster"
-%%% TeX-PDF-mode: t
-%%% End: 
