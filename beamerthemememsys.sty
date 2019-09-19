@@ -7,7 +7,13 @@
 
 \usepackage{tikz}
 \usepackage{pdfrender}
-\usetikzlibrary{shapes,arrows}
+\usetikzlibrary{shapes,arrows,positioning,arrows.meta}
+
+
+\pgfset{
+  foreach/parallel foreach/.style args={#1in#2via#3}{evaluate=#3 as #1 using {{#2}[#3-1]}},
+}
+
 
 % If this is a poster, we're going to define different things
 % Same with presentations.
@@ -18,6 +24,11 @@
 \DeclareOption{poster}{\postertrue}
 \DeclareOption{pres}{\prestrue}
 \ProcessOptions
+
+% supertiny font size
+\makeatletter
+\newcommand{\supertiny}{\@setfontsize{\supertiny}{4pt}{4pt}}
+\makeatother
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \selectcolormodel{cmyk}
@@ -37,24 +48,22 @@
 \definecolor{plotred}{cmyk}{0,1,1,0}
 \definecolor{plotyellow}{cmyk}{0,0.35,1,0}
 
-% headline colors and fonts
-\setbeamercolor{headline}{fg=lanlblue,bg=white}
-\setbeamercolor{title in headline}{fg=lanlblue}
-\setbeamercolor{title in title page}{fg=black}
-\setbeamercolor{author in headline}{fg=lanlblue}
-\setbeamercolor{author in title page}{fg=lanlblue}
-\setbeamercolor{logo in headline}{fg=black,bg=lightgray}
-\setbeamercolor{separation line}{bg=lanlblue}
-
-% footline colors and fonts
-\setbeamercolor{footline}{fg=white,bg=lanlblue}
 
 \ifposter
-% Poster has desatblue background
+% Poster colors
 \setbeamercolor*{normal text}{fg=black,bg=desatblue}
+\setbeamercolor{headline}{fg=lanlblue,bg=white}
+\setbeamercolor{title in headline}{fg=lanlblue}
+\setbeamercolor{author in headline}{fg=lanlblue}
+\setbeamercolor{logo in headline}{fg=black,bg=lightgray}
+\setbeamercolor{separation line}{bg=lanlblue}
+\setbeamercolor{footline}{fg=white,bg=lanlblue}
 \else
-% Other documents have pure white background
+% Other documents
 \setbeamercolor*{normal text}{fg=black,bg=white}
+\setbeamercolor{title in title page}{fg=lanlblue}
+\setbeamercolor{author in title page}{fg=lanlblue}
+\setbeamercolor{itemize item}{fg=black}
 \fi
 
 % block environment
@@ -138,11 +147,14 @@
     \centering
     \vfill%
     \usebeamercolor{title in title page}{\color{fg}\textbf{\LARGE{\inserttitle}}}\\
-    \vspace*{0.5em}
+    \vspace*{1em}
     \usebeamercolor{author in title page}{\color{fg}\large{\insertauthor}}
     \vfill
     \vspace*{1mm}
   \end{minipage}
+}
+\setbeamertemplate{frametitle}{
+  \usebeamercolor{title in title page}{\color{fg}\textbf{\LARGE{\insertframetitle}}}\\
 }
 
 \fi
