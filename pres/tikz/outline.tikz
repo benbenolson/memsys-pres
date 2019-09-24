@@ -1,0 +1,67 @@
+\begin{tikzpicture}[line width=1.4mm,
+                    ->,
+                    shorten >=0.1cm]
+
+% Includes
+\usetikzlibrary{matrix}
+\usetikzlibrary{positioning}
+
+% Styles
+\tikzstyle{bigbox} = [minimum height=2cm,
+                      draw, 
+                      rectangle, 
+                      distance=3cm, 
+                      line width=0.5mm]
+\tikzstyle{box} = [minimum height=1cm,
+                   minimum width=0.4\columnwidth,
+                   draw, 
+                   rectangle, 
+                   anchor=center,
+                   line width=0.25mm]
+\tikzstyle{interfacetitle} = [minimum height=1cm,
+                   minimum width=0.25\columnwidth,
+                   anchor=center,
+                   align=center,
+                   text width=2cm]
+
+% High-Level Interface
+\matrix[matrix of nodes,
+        align=left,
+        text width=0.375\columnwidth,
+        column sep=0.5cm,
+        bigbox](high) {
+  \node[interfacetitle, align=left](hightitle){\LARGE High}; &
+  \node[box](compass){\textit{Compiler Wrappers}\\
+                      Compiles source code into annotated \\
+                      executable}; &
+  \node[box](profilelib){\textit{Profiling Library}\\
+                         Gathers per-site \\runtime memory\\statistics}; &
+  \node[box](packing){\textit{Analysis Program}\\
+                      Generates tier\\recommendations}; &
+  \node[box](runtimelib){\textit{Runtime Library}\\
+                         Uses tier recommendations to place data at runtime with arenas}; \\
+};
+
+% Low-Level Interface
+\matrix[matrix of nodes, 
+        align=left, 
+        text width=4cm, 
+        column sep=0.5cm, 
+        bigbox, 
+        below=0.5cm of high](low) {
+  \node[interfacetitle, align=left](lowtitle){\LARGE Low}; & 
+  \node[box](minimal){\textit{Standard Allocator}\\
+                      Allocates to memory tiers using system heap allocator}; &
+  \node[box](arena){\textit{Arena Allocator}\\
+                    Allocates to memory tiers by grouping similar data into arenas};
+  \\
+};
+
+% Paths to show flow of information
+\draw [] (compass) [right] -- (profilelib) node [left] { };
+\draw [] (profilelib) [right] -- (packing) node [left] { };
+\draw [] (packing) [right] -- (runtimelib) node [left] { };
+\draw [] (runtimelib) [below] -- (arena) node [above] { };
+
+
+\end{tikzpicture}   

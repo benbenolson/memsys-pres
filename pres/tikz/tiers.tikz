@@ -1,0 +1,32 @@
+\def\midlist{
+	RAM Level 3,
+	RAM Level 2,
+	RAM Level 1,
+	CPU Cache\\(L1\, L2\, L3),
+	CPU\\\supertiny(Registers)
+}
+\def\rightlist{
+	"3D XPoint",
+	"DRAM",
+	"MCDRAM",
+	"SRAM",
+	"Processor"
+}
+\tiny%
+\begin{tikzpicture}[>={LaTeX[width=2mm,length=2mm]},<->]
+  \coordinate (A) at (-3,-1) {};
+  \coordinate (B) at (3,-1) {};
+  \coordinate (C) at (0,5) {};
+  \foreach \Mid [count=\i,
+                 evaluate=\i as \j using 15*\i,
+                 parallel foreach=\Right in \rightlist via \i] in \midlist {
+    \draw[fill=lanlblue!\j]
+      (C)--([shift={(-.5*\i,1*\i)}]B)--node[above,align=center]
+      {\Mid}([shift={(.5*\i,1*\i)}]A)--cycle;
+    \node[right of=B, shift={(-.8,1*\i+0.5)}] {\Right};
+  }
+  \draw[line width=0.75mm] (A) -- (B);
+  \draw[line width=0.75mm] (A) -- ([shift={(0,6)}]A);
+  \node[rotate=90] at ([shift={(.2,3)}]A) {Access Speed};
+  \node[] at ([shift={(3,.2)}]A) {Capacity};
+\end{tikzpicture}

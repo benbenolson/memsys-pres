@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Gotta compile twice because frame numbers
+xelatex -output-directory built/ poster/poster.tex
+xelatex -output-directory built/ pres/pres.tex
 xelatex -output-directory built/ poster/poster.tex
 xelatex -output-directory built/ pres/pres.tex
 

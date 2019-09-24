@@ -5,9 +5,13 @@
 \usepackage{fontspec}
 \setmainfont{Inter}
 
+\usepackage{tcolorbox}
 \usepackage{tikz}
 \usepackage{pdfrender}
 \usetikzlibrary{shapes,arrows,positioning,arrows.meta}
+\usepackage{enumitem}
+%\usepackage{listings}
+\tcbuselibrary{listings}
 
 
 \pgfset{
@@ -61,9 +65,13 @@
 \else
 % Other documents
 \setbeamercolor*{normal text}{fg=black,bg=white}
-\setbeamercolor{title in title page}{fg=lanlblue}
+\setbeamercolor{title in title page}{fg=black}
+\setbeamercolor{title in frame}{fg=lanlblue}
 \setbeamercolor{author in title page}{fg=lanlblue}
-\setbeamercolor{itemize item}{fg=black}
+\setbeamercolor{itemize item}{fg=lanlblue}
+\setbeamercolor{itemize subitem}{fg=lanlblue}
+\setbeamercolor{itemize body}{fg=black}
+\setbeamercolor{itemize subbody}{fg=black}
 \fi
 
 % block environment
@@ -77,7 +85,8 @@
 \setbeamercolor{alerted text}{fg=lanlblue}
 
 \setbeamertemplate{itemize items}{>>}
-\setbeamertemplate{navigation symbols}{}  % no navigation on a poster
+\setbeamertemplate{itemize subitem}{>>}
+\setlist[itemize]{leftmargin=*}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \setbeamertemplate{block begin}{
@@ -96,6 +105,9 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \ifposter
+
+\setbeamertemplate{navigation symbols}{}  % no navigation on a poster
+
 % Header of a poster
 \setbeamertemplate{headline}{  
   \leavevmode
@@ -153,12 +165,57 @@
     \vspace*{1mm}
   \end{minipage}
 }
+
+% Only frame numbers
+\beamertemplatenavigationsymbolsempty
+\setbeamertemplate{footline}[frame number]
+
+% Frame titles are blue
 \setbeamertemplate{frametitle}{
-  \usebeamercolor{title in title page}{\color{fg}\textbf{\LARGE{\insertframetitle}}}\\
+  \usebeamercolor{title in frame}{\color{fg}\textbf{\LARGE{\insertframetitle}}}\\
 }
+
+% `customlist` definition. A list that doesn't indent quite so much.
+\makeatletter
+\newenvironment{customlist}[2]{
+  \ifnum\@itemdepth >2\relax\@toodeep\else
+      \advance\@itemdepth\@ne%
+      \beamer@computepref\@itemdepth%
+      \usebeamerfont{itemize \beameritemnestingprefix body}%
+      \usebeamercolor[fg]{itemize \beameritemnestingprefix body}%
+      \usebeamertemplate{itemize \beameritemnestingprefix body begin}%
+      \begin{list}
+        {
+            \usebeamertemplate{itemize \beameritemnestingprefix item}
+        }
+        { \leftmargin=#1 \itemindent=#2
+            \def\makelabel##1{%
+              {%
+                  \hss\llap{{%
+                    \usebeamerfont*{itemize \beameritemnestingprefix item}%
+                        \usebeamercolor[fg]{itemize \beameritemnestingprefix item}##1}}%
+              }%
+            }%
+        }
+  \fi
+}
+{
+  \end{list}
+  \usebeamertemplate{itemize/enumerate \beameritemnestingprefix body end}%
+}
+\makeatother
+
+% Code in TikZ
+\tikzstyle{file}=[rectangle split,rectangle split parts=2,draw,font=\ttfamily,align=left]
 
 \fi
 \fi
+
+% Highlight command. Used to turn words blue.
+\newcommand{\highlight}[1] {
+  \usebeamercolor{title in frame}{\color{fg}\textbf{#1}}
+}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \mode<all>
