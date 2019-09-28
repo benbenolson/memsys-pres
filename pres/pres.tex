@@ -29,7 +29,7 @@
   \end{customlist}
 \column{.6\textwidth}%
   \resizebox{.85\textwidth}{!}{%
-    \input{pres/tikz/tiers.tikz}
+    \input{tikz/tiers.tikz}
   }
 \end{columns}
 \end{minipage}
@@ -49,13 +49,19 @@
 
 % Background
 \begin{frame}{Background}
-  \begin{customlist}{0em}{0em}
-    \item The Exascale Computing Project (\highlight{ECP})
-    \item The Simplified Interface to Complex Memory (\highlight{SICM})
-    \item Extends high-level interface with automated and portable application
-      guidance
-  \end{customlist}
-  \includegraphics[width=.85\textwidth]{pres/figures/sicm.pdf}
+  \begin{columns}[T,onlytextwidth]%
+  \column{.6\textwidth}%
+    \resizebox{.9\textwidth}{!}{%
+      \input{tikz/sicm.tikz}
+    }
+  \column{.4\textwidth}%
+    \begin{customlist}{0em}{0em}
+      \item The Exascale Computing Project (\highlight{ECP})
+      \item The Simplified Interface to Complex Memory (\highlight{SICM})
+      \item Extends high-level interface with automated and portable application
+        guidance
+    \end{customlist}
+  \end{columns}
 \end{frame}
 
 % Our Approach - Outline
@@ -68,7 +74,7 @@
   \end{customlist}
   \vspace{2em}
   \centering
-  \includegraphics[width=.85\textwidth]{pres/figures/membrain.pdf}
+  \includegraphics[width=.85\textwidth]{figures/membrain.pdf}
 \end{frame}
 
 % Our Approach - Step A
@@ -100,12 +106,12 @@
 \begin{frame}{Arena Allocation}
   \centering
   \highlight{Profiling}\\
-  \includegraphics[width=.5\textwidth]{pres/figures/shared_sites.pdf}
+  \includegraphics[width=.5\textwidth]{figures/shared_sites.pdf}
   \vspace{1em}
   \noindent\rule{10cm}{0.4pt}
   \vspace{1em}\\
   \highlight{Guiding}\\
-  \includegraphics[width=.55\textwidth]{pres/figures/exclusive_device.pdf}
+  \includegraphics[width=.55\textwidth]{figures/exclusive_device.pdf}
 \end{frame}
 
 % Our Approach - Step B
@@ -204,42 +210,42 @@
 
 \begin{frame}{Profiling Overhead}
   \centering
-  \includegraphics[width=.9\textwidth]{pres/figures/profile.pdf}
+  \includegraphics[width=.9\textwidth]{figures/profile.pdf}
 \end{frame}
 
 \begin{frame}{Varying Capacity in the Upper Tier: KNL}
   \centering
-  \includegraphics[width=.49\textwidth]{pres/figures/small_lulesh.pdf}
-  \includegraphics[width=.49\textwidth]{pres/figures/small_amg.pdf}
+  \includegraphics[width=.49\textwidth]{figures/small_lulesh.pdf}
+  \includegraphics[width=.49\textwidth]{figures/small_amg.pdf}
   \\
-  \includegraphics[width=.49\textwidth]{pres/figures/small_snap.pdf}
-  \includegraphics[width=.49\textwidth]{pres/figures/small_qmcpack.pdf}
+  \includegraphics[width=.49\textwidth]{figures/small_snap.pdf}
+  \includegraphics[width=.49\textwidth]{figures/small_qmcpack.pdf}
 \end{frame}
 
 \begin{frame}{Varying Capacity in the Upper Tier: CLX}
   \centering
-  \includegraphics[width=.49\textwidth]{pres/figures/clx_small_lulesh.pdf}
-  \includegraphics[width=.49\textwidth]{pres/figures/clx_small_amg.pdf}
+  \includegraphics[width=.49\textwidth]{figures/clx_small_lulesh.pdf}
+  \includegraphics[width=.49\textwidth]{figures/clx_small_amg.pdf}
   \\
-  \includegraphics[width=.49\textwidth]{pres/figures/clx_small_snap.pdf}
-  \includegraphics[width=.49\textwidth]{pres/figures/clx_small_qmcpack.pdf}
+  \includegraphics[width=.49\textwidth]{figures/clx_small_snap.pdf}
+  \includegraphics[width=.49\textwidth]{figures/clx_small_qmcpack.pdf}
 \end{frame}
 
 \begin{frame}{Full-Sized Performance: KNL}
   \centering
-  \includegraphics[width=.9\textwidth]{pres/figures/knl_perf.pdf}
+  \includegraphics[width=.9\textwidth]{figures/knl_perf.pdf}
 \end{frame}
 
 \begin{frame}{Full-Sized Performance: CLX}
   \centering
-  \includegraphics[width=.9\textwidth]{pres/figures/aep_perf.pdf}
+  \includegraphics[width=.9\textwidth]{figures/aep_perf.pdf}
 \end{frame}
 
 \begin{frame}{Cross-Platform Performance}
   \centering
-  \includegraphics[width=.6\textwidth]{pres/figures/knl_cross.pdf}
+  \includegraphics[width=.6\textwidth]{figures/knl_cross.pdf}
   \\
-  \includegraphics[width=.6\textwidth]{pres/figures/aep_cross.pdf}
+  \includegraphics[width=.6\textwidth]{figures/aep_cross.pdf}
 \end{frame}
 
 \end{document}

@@ -2,8 +2,15 @@
 	RAM Level 3,
 	RAM Level 2,
 	RAM Level 1,
+	\ifposter%
+    \prettytiny%
+  \fi%
 	CPU Cache\\(L1\, L2\, L3),
-	CPU\\\supertiny(Registers)
+	\ifposter%
+    \prettytiny%
+  \fi%
+  CPU\\
+  \supertiny(Registers)
 }
 \def\rightlist{
 	"3D XPoint",

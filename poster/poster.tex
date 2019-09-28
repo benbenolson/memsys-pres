@@ -2,6 +2,8 @@
 \mode<presentation>
 \usepackage{color}
 \usepackage[size=custom,width=36,height=48,scale=.8,orientation=portrait]{beamerposter}
+\usepackage{tikz}
+\usepackage{tikzscale}
 
 \setbeamertemplate{navigation symbols}{}
 \usetheme[poster]{memsys}
@@ -14,22 +16,74 @@
 \begin{columns}[t]
   \begin{column}{.45\linewidth}
 
+    % Problem
     \begin{block}{Problem}
+      \begin{columns}%
+        \column{.46\textwidth}%
+        \includegraphics[width=1\textwidth]{tikz/tiers.tikz}
+        \column{.45\textwidth}%
+        Memory is no longer a contiguous block of
+        volatile DRAM with homogeneous performance.
+      \end{columns}%
+      \vspace{1mm}%
     \end{block}
-    
-    \begin{block}{Proposed Solution}
+
+    \begin{block}{Current Approaches}
+      \begin{itemize}
+				\item \highlight{Cache Mode}:
+          Upper tier as hardware-managed cache (Cache Mode on KNL, 2LM on CLX).
+          Inflexible and subject to nasty edge cases.
+				\item \highlight{First touch}:
+					Software-based data tiering (\texttt{numactl}). Produces inconsistent, often poor,
+          performance.
+      \end{itemize}
     \end{block}
-    
-    \begin{block}{Project Team}
+
+    \begin{block}{Our Approach}
+      We use automated compile-time annotation, PEBS-based profiling, and arena
+      allocation to collect per-allocation-site memory usage and intelligently
+      guide and migrate allocations.
+      \vspace{1em}
+      \begin{center}
+        \resizebox{0.85\textwidth}{!}{%
+          \input{tikz/outline.tikz}
+        }
+      \end{center}
     \end{block}
+
+    % Try It Out
+    \begin{block}{Try It Out}
+        https://github.com/lanl/SICM/tree/high\_dev
+        \\\vspace{1em}
+        Currently it's a branch of the main SICM repository. We plan to merge when it stabilizes.
+    \end{block}
+
+
   \end{column}
   
   \begin{column}{.45\linewidth}
 
-    \begin{block}{Preliminary Results}
+    % Solution
+    \begin{block}{Framework}
+      \highlight{SICM}:\\Simplified Interface to Complex Memory
+      \begin{center}
+        \resizebox{0.7\textwidth}{!}{%
+          \input{tikz/sicm.tikz}
+        }%
+      \end{center}%
     \end{block}
-    
-    \begin{block}{Repository}
+
+    % Results
+    \begin{block}{Results}
+      \centering%
+      \highlight{Varying Capacity:}\\
+      \includegraphics[width=0.45\textwidth]{figures/clx_small_lulesh.pdf}
+      \includegraphics[width=0.45\textwidth]{figures/clx_small_qmcpack.pdf}
+      \highlight{KNL Performance:}
+      \includegraphics[width=0.8\textwidth]{figures/knl_perf.pdf}\\
+      \vspace{1em}
+      \highlight{CLX Performance:}
+      \includegraphics[width=0.8\textwidth]{figures/aep_perf.pdf}\\
     \end{block}
 
   \end{column}

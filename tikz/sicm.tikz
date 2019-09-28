@@ -1,0 +1,97 @@
+\begin{tikzpicture}[>={LaTeX[width=5mm]},->,
+                    line width=1mm,
+                    shorten >=0.3cm]
+
+  \ifposter
+    \quitebig
+    \newcommand\WIDTH{120mm}
+    \newcommand\HEIGHT{138mm}
+    \newcommand\BOXHEIGHT{90mm}
+    \newcommand\INNERBOXSEP{-10mm}
+    \newcommand\OUTERBOXSEP{6mm}
+    \newcommand\BIGSPACER{95mm}
+    \newcommand\SMALLSPACER{40mm}
+  \else
+    \ifpres
+      \giant
+      \newcommand\WIDTH{170mm}
+      \newcommand\HEIGHT{190mm}
+      \newcommand\BOXHEIGHT{100mm}
+      \newcommand\INNERBOXSEP{-20mm}
+      \newcommand\OUTERBOXSEP{8mm}
+      \newcommand\BIGSPACER{140mm}
+      \newcommand\SMALLSPACER{59mm}
+    \fi
+  \fi
+
+  % Styles
+  \tikzstyle{bigbox} = [draw, 
+                        rectangle,
+                        minimum width=4.5*\WIDTH,
+                        minimum height=\HEIGHT,
+                        align=center,
+                        inner sep=0mm,
+                        outer sep=0mm]
+  \tikzstyle{box} = [draw, 
+                     regular polygon,
+                     regular polygon sides=5,
+                     anchor=center,
+                     outer sep=\OUTERBOXSEP,
+                     inner sep=\INNERBOXSEP,
+                     minimum width=\WIDTH,
+                     minimum height=\BOXHEIGHT,
+                     align=center]
+  \tikzstyle{halfbox} = [
+                     rectangle,
+                     anchor=center,
+                     outer sep=0mm,
+                     inner sep=0mm,
+                     yshift=-20mm,
+                     minimum width=\BIGSPACER,
+                     minimum height=1mm,
+                     align=center]
+  \tikzstyle{tinybox} = [
+                     rectangle,
+                     anchor=center,
+                     outer sep=0mm,
+                     inner sep=0mm,
+                     yshift=-20mm,
+                     minimum width=\SMALLSPACER,
+                     minimum height=1mm,
+                     align=center]
+
+  \node[bigbox](a){};
+  \node[tinybox, right=0pt of a.west](a0){};
+  \node[box, right=0pt of a0.east](a1){\highlight{A}\\Compiler\\Wrappers};
+  \node[box, right=0pt of a1.east](a2){\highlight{B}\\Profiling};
+  \node[box, right=0pt of a2.east](a3){\highlight{C}\\Placement\\Algorithms};
+  \node[box, right=0pt of a3.east](a4){\highlight{D}\\Smart\\Allocation};
+  \node[tinybox, right=0pt of a4.east](a5){};
+  \node[align=center, below=0pt of a.north](title0){\highlight{High-Level Interface}};
+
+  \node[bigbox, below=0pt of a](b){};
+  \node[tinybox, right=0pt of b.west](b0){};
+  \node[box, right=0pt of b0.east](b1){Discovery};
+  \node[box, right=0pt of b1.east](b2){Config};
+  \node[box, right=0pt of b2.east](b3){Allocation};
+  \node[box, right=0pt of b3.east](b4){Arena\\Allocation};
+  \node[tinybox, right=0pt of b4.east](b5){};
+  \node[align=center, below=0pt of b.north](title1){\highlight{Low-Level Interface}};
+
+  \node[bigbox, below=0pt of b](c){};
+  \node[halfbox, right=0pt of c.west](c0){};
+  \node[box, right=0pt of c0.east](c1){NUMA\\API};
+  \node[box, right=0pt of c1.east](c2){\texttt{mbind}};
+  \node[box, right=0pt of c2.east](c3){\texttt{madvise}};
+  \node[halfbox, right=0pt of c3.east](c4){};
+  \node[align=center, below=0pt of c.north](title2){\highlight{Kernel}};
+
+  \node[bigbox, below=0pt of c](d){};
+  \node[halfbox, right=0pt of d.west](d0){};
+  \node[box, right=0pt of d0.east](d1){MCDRAM};
+  \node[box, right=0pt of d1.east](d2){DCPMMs};
+  \node[box, right=0pt of d2.east](d3){DRAM};
+  \node[halfbox, right=0pt of d3.east](d4){};
+  \node[align=center, below=0pt of d.north](title3){\highlight{Devices}};
+
+\end{tikzpicture}

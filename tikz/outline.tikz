@@ -1,0 +1,84 @@
+\begin{tikzpicture}[>={LaTeX[width=5mm]},->,
+                    line width=1mm,
+                    shorten >=0.3cm]
+
+
+  \ifposter
+    \huge
+    \newcommand\WIDTH{150mm}
+    \newcommand\HEIGHT{120mm}
+    \newcommand\TITLEHEIGHT{25mm}
+    \newcommand\BODYHEIGHT{95mm}
+    \newcommand\OFFSET{20mm}
+  \else
+    \ifpres
+      \giant
+      \newcommand\WIDTH{200mm}
+      \newcommand\HEIGHT{200mm}
+    \fi
+  \fi
+
+  % Styles
+  \tikzstyle{bigbox} = [draw,
+                        rectangle,
+                        minimum width=\WIDTH,
+                        minimum height=\HEIGHT,
+                        align=center,
+                        inner sep=5mm,
+                        outer sep=0mm]
+  \tikzstyle{title} = [draw,
+                        rectangle,
+                        minimum width=\WIDTH,
+                        minimum height=\TITLEHEIGHT,
+                        align=center,
+                        inner sep=5mm,
+                        outer sep=0mm]
+  \tikzstyle{body} = [draw,
+                        rectangle,
+                        minimum width=\WIDTH,
+                        minimum height=\BODYHEIGHT,
+                        align=center,
+                        inner sep=5mm,
+                        outer sep=0mm]
+
+  % Annotate
+  \node[bigbox](annotate){};
+  \node[title, below=0mm of annotate.north](annotatetitle){
+    \highlight{Annotate}
+  };
+  \node[body, below=0mm of annotatetitle](annotatebody){
+    Compile executable\\with allocation site\\annotations
+  };
+
+  % Profile
+  \node[bigbox, below=\OFFSET of annotate.south](profile){};
+  \node[title, below=0mm of profile.north](profiletitle){
+    \highlight{Profile}
+  };
+  \node[body, below=0mm of profiletitle](profilebody){
+    Profile memory\\usage of each site
+  };
+
+  % Decide
+  \node[bigbox, right=0.75*\WIDTH of annotate.east](decide){};
+  \node[title, below=0mm of decide.north](decidetitle){
+    \highlight{Decide}
+  };
+  \node[body, below=0mm of decidetitle](decidebody){
+    Generate tier\\recommendations
+  };
+
+  % Apply
+  \node[bigbox, below=\OFFSET of decide.south](apply){};
+  \node[title, below=0mm of apply.north](applytitle){
+    \highlight{Apply}
+  };
+  \node[body, below=0mm of applytitle](applybody){
+    Bind memory\\according to tier\\recommendations
+  };
+
+  \path[] (annotate.south) edge[] node {} (profile.north);
+  \path[] (profile.east) edge[] node {} (decide.west);
+  \path[] (decide.south) edge[] node {} (apply.north);
+
+\end{tikzpicture}

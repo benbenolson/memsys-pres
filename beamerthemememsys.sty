@@ -7,8 +7,9 @@
 
 \usepackage{tcolorbox}
 \usepackage{tikz}
+\usepackage{tikzscale}
 \usepackage{pdfrender}
-\usetikzlibrary{shapes,arrows,positioning,arrows.meta}
+\usetikzlibrary{shapes,arrows,positioning,arrows.meta,matrix,fit}
 \usepackage{enumitem}
 %\usepackage{listings}
 \tcbuselibrary{listings}
@@ -34,6 +35,21 @@
 \newcommand{\supertiny}{\@setfontsize{\supertiny}{4pt}{4pt}}
 \makeatother
 
+% prettytiny font size
+\makeatletter
+\newcommand{\prettytiny}{\@setfontsize{\prettytiny}{6pt}{6pt}}
+\makeatother
+
+% quitebig font size
+\makeatletter
+\newcommand{\quitebig}{\@setfontsize{\quitebig}{50pt}{50pt}}
+\makeatother
+
+% giant font size
+\makeatletter
+\newcommand{\giant}{\@setfontsize{\giant}{60pt}{60pt}}
+\makeatother
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \selectcolormodel{cmyk}
 \mode<presentation>
@@ -57,7 +73,7 @@
 % Poster colors
 \setbeamercolor*{normal text}{fg=black,bg=desatblue}
 \setbeamercolor{headline}{fg=lanlblue,bg=white}
-\setbeamercolor{title in headline}{fg=lanlblue}
+\setbeamercolor{title in headline}{fg=black}
 \setbeamercolor{author in headline}{fg=lanlblue}
 \setbeamercolor{logo in headline}{fg=black,bg=lightgray}
 \setbeamercolor{separation line}{bg=lanlblue}
@@ -73,6 +89,8 @@
 \setbeamercolor{itemize body}{fg=black}
 \setbeamercolor{itemize subbody}{fg=black}
 \fi
+
+\setbeamercolor{highlight}{fg=lanlblue}
 
 % block environment
 \setbeamercolor*{block body}{bg=white,fg=black}
@@ -127,19 +145,11 @@
         \vskip4ex
       \end{column}
       \begin{column}{.06\paperwidth}
-        \includegraphics[width=\linewidth]{logos/lanl-logo.eps}
-        \vskip4ex
-        \includegraphics[width=\linewidth]{logos/llnl-logo.eps}
+        \includegraphics[width=\linewidth]{logos/ut.eps}
         \vskip4ex
         \includegraphics[width=\linewidth]{logos/ornl-logo.eps}
-        %livermore oak ridge sandia georgia tech
-      \end{column}
-      \begin{column}{.01\paperwidth}
-      \end{column}
-      \begin{column}{.06\paperwidth}
-        \includegraphics[width=\linewidth]{logos/snl-logo.eps}
         \vskip4ex
-        \includegraphics[width=\linewidth]{logos/gt-logo.eps}
+        \includegraphics[width=\linewidth]{logos/intel.eps}
       \end{column}
       \begin{column}{.02\paperwidth}
       \end{column}
@@ -175,6 +185,17 @@
   \usebeamercolor{title in frame}{\color{fg}\textbf{\LARGE{\insertframetitle}}}\\
 }
 
+% Code in TikZ
+\tikzstyle{file}=[rectangle split,rectangle split parts=2,draw,font=\ttfamily,align=left]
+
+\fi
+\fi
+
+% Highlight command. Used to turn words blue.
+\newcommand{\highlight}[1] {
+  \usebeamercolor{highlight}{\color{fg}\textbf{#1}}
+}
+
 % `customlist` definition. A list that doesn't indent quite so much.
 \makeatletter
 \newenvironment{customlist}[2]{
@@ -205,16 +226,6 @@
 }
 \makeatother
 
-% Code in TikZ
-\tikzstyle{file}=[rectangle split,rectangle split parts=2,draw,font=\ttfamily,align=left]
-
-\fi
-\fi
-
-% Highlight command. Used to turn words blue.
-\newcommand{\highlight}[1] {
-  \usebeamercolor{title in frame}{\color{fg}\textbf{#1}}
-}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
