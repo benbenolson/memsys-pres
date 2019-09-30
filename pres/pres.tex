@@ -66,15 +66,20 @@
 
 % Our Approach - Outline
 \begin{frame}{Our Approach}
-  \begin{customlist}{0em}{0em}
-    \item \highlight{A}: Compile executable with allocation site annotations
-    \item \highlight{B}: Profile memory usage of each site
-    \item \highlight{C}: Generate tier recommendations
-    \item \highlight{D}: Apply data tier recommendations
-  \end{customlist}
-  \vspace{2em}
-  \centering
-  \includegraphics[width=.85\textwidth]{figures/membrain.pdf}
+  \begin{columns}[T,onlytextwidth]%
+  \column{.4\textwidth}%
+    \begin{customlist}{0em}{0em}
+      \item \highlight{A}: Compile executable with allocation site annotations
+      \item \highlight{B}: Profile memory usage of each site
+      \item \highlight{C}: Generate tier recommendations
+      \item \highlight{D}: Apply data tier recommendations
+    \end{customlist}
+  \column{.6\textwidth}%
+    \centering
+    \resizebox{.9\textwidth}{!}{%
+      \input{tikz/outline.tikz}
+    }
+  \end{columns}
 \end{frame}
 
 % Our Approach - Step A

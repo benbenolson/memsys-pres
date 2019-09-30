@@ -13,8 +13,11 @@
   \else
     \ifpres
       \giant
-      \newcommand\WIDTH{200mm}
-      \newcommand\HEIGHT{200mm}
+      \newcommand\WIDTH{210mm}
+      \newcommand\HEIGHT{190mm}
+      \newcommand\TITLEHEIGHT{35mm}
+      \newcommand\BODYHEIGHT{155mm}
+      \newcommand\OFFSET{40mm}
     \fi
   \fi
 
